@@ -1,50 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="A practical back-to-school checklist for students and families.">
-  <title>Ready, Set, Learn | Back-to-school checklist</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <header class="site-header">
-    <a class="brand" href="#top" aria-label="Back to School Plan home"><span class="brand-mark">S</span> School Plan</a>
-    <nav aria-label="Main navigation"><a href="#checklist">Checklist</a><a href="#tips">Tips</a><a href="#timeline">Timeline</a></nav>
-    <button class="print-button" id="printButton" type="button"><span aria-hidden="true">↗</span> Print list</button>
-  </header>
-  <main id="top">
-    <section class="hero">
-      <div class="hero-copy"><p class="eyebrow"><span></span> A fresh start for the school year</p><h1 id="hero-title">Back to School Plan</h1><div class="hero-rule" aria-hidden="true"></div><p class="hero-text">Everything students need to feel prepared, organized, and ready for a great year.</p><a class="primary-button" href="#checklist">View the checklist <b aria-hidden="true">↓</b></a></div>
-      <div class="hero-visual" aria-label="Illustration of a ready backpack"><div class="sun"></div><div class="sticker top">YOU<br>GOT<br>THIS</div><div class="backpack"><i class="handle"></i><i class="flap"></i><i class="body"></i><i class="pocket"></i><i class="strap left"></i><i class="strap right"></i></div><i class="pencil one"></i><i class="pencil two"></i><div class="sticker bottom">NEW<br>CHAPTER</div></div>
-    </section>
-    <section class="checklist-section" id="checklist">
-      <div class="section-heading"><div><p class="eyebrow">The essentials</p><h2>Your school-year checklist</h2></div><div class="progress-wrap" aria-live="polite"><p><span id="progressCount">0 of 16</span> packed</p><div class="progress-track"><div id="progressBar"></div></div></div></div>
-      <div class="filter-row" role="group" aria-label="Filter checklist categories"><button class="filter-button active" data-filter="all">All items</button><button class="filter-button" data-filter="class">For class</button><button class="filter-button" data-filter="you">For you</button><button class="filter-button" data-filter="day-one">First day</button></div>
-      <div class="checklist-grid">
-        <article class="checklist-card coral" data-category="class"><div class="card-top"><span>01</span><b>✎</b></div><h3>Classroom kit</h3><p>Everyday tools that keep ideas moving.</p><ul><li>Notebooks</li><li>Pens & pencils</li><li>Highlighters</li><li>Calculator</li></ul></article>
-        <article class="checklist-card blue" data-category="you"><div class="card-top"><span>02</span><b>✿</b></div><h3>Feel your best</h3><p>Small comforts for long school days.</p><ul><li>Water bottle</li><li>Healthy snack</li><li>Hand sanitizer</li><li>Emergency contacts</li></ul></article>
-        <article class="checklist-card yellow" data-category="day-one"><div class="card-top"><span>03</span><b>★</b></div><h3>First-day details</h3><p>Prep now and walk in with confidence.</p><ul><li>Outfit picked out</li><li>Class schedule</li><li>Lunch plan</li><li>Route to school</li></ul></article>
-        <article class="checklist-card green" data-category="class"><div class="card-top"><span>04</span><b>▣</b></div><h3>Tech & extras</h3><p>Keep your digital life charged and ready.</p><ul><li>Charged device</li><li>Charger</li><li>Headphones</li><li>Student ID</li></ul></article>
-      </div>
-      <p class="complete-message" id="completeMessage" hidden>All packed. You are ready to make this year yours.</p>
-    </section>
-    <section class="tips-section" id="tips"><div><p class="eyebrow">A little head start</p><h2>Make room<br>for <em>good days.</em></h2></div><div class="tip-list"><article><b>01</b><div><h3>Pack the night before</h3><p>Give yourself a calmer morning and ten extra minutes to spare.</p></div></article><article><b>02</b><div><h3>Put your name on it</h3><p>Labels turn lost-and-found surprises into quick returns.</p></div></article><article><b>03</b><div><h3>Ask one question</h3><p>A small moment of curiosity is a great way to start a new year.</p></div></article></div></section>
-    <section class="timeline-section" id="timeline"><div><p class="eyebrow">Your runway to day one</p><h2>Ready in three moves.</h2></div><div class="timeline"><article><b>01</b><h3>Gather</h3><p>Collect your essentials.</p></article><article><b>02</b><h3>Set up</h3><p>Charge, label, and plan.</p></article><article><b>03</b><h3>Show up</h3><p>Bring your best energy.</p></article></div></section>
-  </main>
-  <footer><strong>Ready, Set, Learn</strong><span>Made for the next chapter ✦</span></footer>
-  <script>
-    const items = [...document.querySelectorAll('.checklist-card li')];
-    const count = document.getElementById('progressCount');
-    const bar = document.getElementById('progressBar');
-    const done = document.getElementById('completeMessage');
-    items.forEach((item) => { item.tabIndex = 0; item.setAttribute('role', 'checkbox'); item.setAttribute('aria-checked', 'false'); item.addEventListener('click', () => toggle(item)); item.addEventListener('keydown', (event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); toggle(item); } }); });
-    function toggle(item) { item.classList.toggle('checked'); item.setAttribute('aria-checked', item.classList.contains('checked')); const complete = items.filter((entry) => entry.classList.contains('checked')).length; count.textContent = `${complete} of ${items.length}`; bar.style.width = `${complete / items.length * 100}%`; done.hidden = complete !== items.length; }
-    document.querySelectorAll('.filter-button').forEach((button) => button.addEventListener('click', () => { document.querySelectorAll('.filter-button').forEach((entry) => entry.classList.remove('active')); button.classList.add('active'); document.querySelectorAll('.checklist-card').forEach((card) => { card.hidden = button.dataset.filter !== 'all' && card.dataset.category !== button.dataset.filter; }); }));
-    document.getElementById('printButton').addEventListener('click', () => window.print());
-  </script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>School Plan</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="hero-page">
+      <header class="topbar">
+        <div class="brand-row">
+          <span class="brand-mark"></span>
+          <span class="brand-name">School Plan</span>
+        </div>
+      </header>
+
+      <main class="hero">
+        <div class="hero-bg" aria-hidden="true"></div>
+        <div class="hero-content">
+          <h1>Back to School Plan</h1>
+          <div class="hero-rule" aria-hidden="true"></div>
+        </div>
+      </main>
+
+      <section class="panel">
+        <h2>Hello Parents</h2>
+      </section>
+
+      <section class="intro-band" aria-label="Introduction">
+        <p>This is about what we are going to be doing this school.</p>
+        <p>I will be telling you what are going to need for this school year.</p>
+      </section>
+
+      <section class="cards-section" aria-label="School plan cards">
+        <article class="info-card">
+          <h3>School Supplies</h3>
+          <div class="card-image doodle-art" aria-label="School supplies illustration"></div>
+          <p class="card-copy">The Students are going to need a bookbag, pencils, color pencils, pens, notebooks, ruler, calculator, and makers and highlighters.</p>
+        </article>
+
+        <article class="info-card">
+          <h3>Lunch</h3>
+          <div class="card-image lunch-art" aria-label="Lunch tray"></div>
+          <p class="card-copy">Students are going to need water bottles and lunch boxes cause some students will not like the school lunch.</p>
+        </article>
+
+        <article class="info-card">
+          <h3>Outside time</h3>
+          <div class="card-image outside-art" aria-label="Outside time"></div>
+          <p class="card-copy">Students might get hurt so the are going to need bandages if they get hurt and they will need extra clothes and running shoes.</p>
+        </article>
+      </section>
+
+      <button class="fab" aria-label="Next step">↗</button>
+    </div>
+  </body>
 </html>
